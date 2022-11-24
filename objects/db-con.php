@@ -31,8 +31,17 @@ class DB
 
     public function insertNaam($naam)
     {
+        if ($naam[0] == '') return;
+        if ($naam[1] == '') return;
         $sql = "INSERT INTO personen (vnaam, anaam,geslacht,email) VALUES (?,?,?,?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($naam);
+    }
+
+    public function getData()
+    {
+        $query = "SELECT * from personen";
+        $opdracht = $this->conn->query($query);
+        return ($opdracht->fetchAll());
     }
 }
